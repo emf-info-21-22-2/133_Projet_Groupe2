@@ -37,18 +37,24 @@ public class Score {
         this.id = id;
     }
 
+    public void setPoint(Integer point){
+        this.point = point;
+    }
+
     public Integer getPoint() {
         return point;
     }
-
-
-    
-
-    
-
-    
-
-    
-
+    public void setDate(String date){
+        this.date = date;
+    }
+    public String getDate(){
+        return date;
+    }
+    public User getUser(){
+        return user;
+    }
+    public void setUser(User user){
+        this.user = user;
+    }
     
 }
