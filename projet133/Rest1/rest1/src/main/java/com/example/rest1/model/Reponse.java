@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
 @Table (name = "t_reponse")
 public class Reponse {
     @Id
-    @Column(name = "PK_Reponse", length = 50)
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PK_Reponse", length = 50)
     private Integer pk;
     @Column(name = "reponse", length = 50)
     private String reponse;
