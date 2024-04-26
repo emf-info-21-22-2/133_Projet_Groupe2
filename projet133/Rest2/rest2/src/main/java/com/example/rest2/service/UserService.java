@@ -1,6 +1,8 @@
 package com.example.rest2.service;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.example.rest2.model.User;
@@ -26,14 +28,16 @@ public class UserService {
         if (userRepository.findByUsername(username) != null) {
             throw new IllegalArgumentException("L'utilisateur existe déjà");
         }
+        String hashedPassword = DigestUtils.sha256Hex(password);
+    
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
         userRepository.save(user);
-
+    
         return "User added successfully!";
-        
     }
+    
     @Transactional
     public String deleteUser(String username) {
         User user = userRepository.findByUsername(username);

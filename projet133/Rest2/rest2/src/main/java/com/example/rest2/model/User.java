@@ -19,7 +19,7 @@ public class User {
     @Column(name = "Username", length = 50)
     private String username;
 
-    @Column(name = "Password", length = 50)
+    @Column(name = "Password", length = 255)
     private String password;
 
     public Integer getId(){
