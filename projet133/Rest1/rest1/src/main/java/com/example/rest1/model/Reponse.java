@@ -57,4 +57,8 @@ public class Reponse {
     public void setQuestion(Question question) {
         this.question = question;
     }
+
+    public String toString(){
+        return question.getEnoncer() + " Reponses: " + reponse + ", "; 
+    }
 }

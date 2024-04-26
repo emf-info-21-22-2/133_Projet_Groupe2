@@ -23,28 +23,15 @@ public class QuestionService{
         Question newQuestion = new Question();
         newQuestion.setEnoncer(enoncer);
         questionRepository.save(newQuestion);
-        return "Ajout réussi";
+        return "Ajout question réussi";
     }
-
-    @Transactional
-public String modifyQuestion(Integer id, String newEnoncer) {
-    Optional<Question> optionalQuestion = questionRepository.findById(id);
-    if (optionalQuestion.isPresent()) {
-        Question existingQuestion = optionalQuestion.get();
-        existingQuestion.setEnoncer(newEnoncer);
-        questionRepository.save(existingQuestion);
-        return "Modification réussie";
-    } else {
-        return "Question non trouvée";
-    }
-}
 
 @Transactional
 public String deleteQuestion(Integer id) {
     Optional<Question> optionalQuestion = questionRepository.findById(id);
     if (optionalQuestion.isPresent()) {
         questionRepository.delete(optionalQuestion.get());
-        return "Suppression réussie";
+        return "Suppression question réussie";
     } else {
         return "Question non trouvée";
     }

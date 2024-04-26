@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
- 
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.rest1.service.QuestionService;
 import com.example.rest1.service.ReponseService;
 import com.example.rest1.model.Reponse;
-import com.example.rest1.model.Question;
- 
+
+@RestController
 public class Controller {
     private final QuestionService questionService;
     private final ReponseService reponseService;
@@ -23,17 +24,17 @@ public class Controller {
  
     @GetMapping("/")
     public String getNothing() {
-        return "rien";
+        return "Bonsoir la team";
+    }
+
+    @GetMapping("/getQuestions")
+    public @ResponseBody String showScore() {
+        return reponseService.getAllQuestions();
     }
  
     @PostMapping(path = "/addQuestion")
     public @ResponseBody String addNewQuestion(@RequestParam String enoncer) {
         return questionService.addNewQuestion(enoncer);
-    }
- 
-    @PostMapping(path = "/modifieQuestion")
-    public @ResponseBody String modifieQuestion(@RequestParam int id, @RequestParam String newEnoncer) {
-        return questionService.modifyQuestion(id, newEnoncer);
     }
 
     @PostMapping(path = "/deleteQuestion")
@@ -41,14 +42,9 @@ public class Controller {
         return questionService.deleteQuestion(id);
     }
 
-    @PostMapping(path = "/addQuestion")
-    public @ResponseBody String addNewReponse(@RequestParam String newReponse, @RequestParam boolean correcte, @RequestParam Question question) {
+    @PostMapping(path = "/addReponse")
+    public @ResponseBody String addNewReponse(@RequestParam String newReponse, @RequestParam boolean correcte, @RequestParam int question) {
         return reponseService.addNewReponse(newReponse, correcte, question);
-    }
-
-    @PostMapping(path = "/modifieReponse")
-    public @ResponseBody String modifieReponse(@RequestParam int id, @RequestParam String newReponse, @RequestParam boolean correcte) {
-        return reponseService.modifyReponse(null, newReponse, correcte);
     }
 
     @PostMapping(path = "/deleteReponse")
@@ -60,6 +56,8 @@ public class Controller {
     public @ResponseBody boolean checkReponse(@RequestParam Reponse reponseAChecker) {
         return reponseService.checkReponse(reponseAChecker);
     }
+
+
  
 }
  
