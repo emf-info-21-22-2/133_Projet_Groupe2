@@ -56,5 +56,8 @@ public class Score {
     public void setUser(User user){
         this.user = user;
     }
+    public String toString(){
+        return getUser().getUsername() + ": " + getPoint(); 
+    }
     
 }

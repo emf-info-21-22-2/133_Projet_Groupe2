@@ -1,12 +1,14 @@
 package com.example.rest2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.rest2.model.User;
 import com.example.rest2.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class UserService {
    
     private final UserRepository userRepository;
@@ -32,6 +34,7 @@ public class UserService {
         return "User added successfully!";
         
     }
+    @Transactional
     public String deleteUser(String username) {
         User user = userRepository.findByUsername(username);
         if (user != null) {
@@ -41,7 +44,16 @@ public class UserService {
             return "Utilisateur non trouvé!";
         }
     }
+    @Transactional
+    public String login(String username, String password) {
+        User user = userRepository.findByUsername(username);
 
+        if (user != null && user.getPassword().equals(password)) {
+            return "Login réussi : " + user.getUsername();
+        } else {
+            throw new IllegalArgumentException("Nom d'utilisateur ou mot de passe incorrect");
+        }
+    }
     
     
     

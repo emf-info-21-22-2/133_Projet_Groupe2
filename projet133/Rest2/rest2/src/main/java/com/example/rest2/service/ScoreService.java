@@ -8,8 +8,14 @@ import com.example.rest2.repository.ScoreRepository;
 import com.example.rest2.repository.UserRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import jakarta.transaction.Transactional;
 
+@Service
 public class ScoreService {
     private final ScoreRepository scoreRepository;
     private final UserRepository userRepository;
@@ -39,10 +45,27 @@ public class ScoreService {
         scoreRepository.save(newScore);
         return "Saved";
 
-
     }
-   
-    
-    
+
+    @Transactional
+    public String getAllScores() {
+        List<Score> scores = (List<Score>) scoreRepository.findAll();
+        Map<String, List<Integer>> userScores = new HashMap<>();
+
+        for (Score score : scores) {
+            String username = score.getUser().getUsername();
+            if (!userScores.containsKey(username)) {
+                userScores.put(username, new ArrayList<>());
+            }
+            userScores.get(username).add(score.getPoint());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, List<Integer>> entry : userScores.entrySet()) {
+            sb.append(entry.getKey()).append(": ").append(entry.getValue().toString()).append("\n");
+        }
+
+        return sb.toString();
+    }
 
 }

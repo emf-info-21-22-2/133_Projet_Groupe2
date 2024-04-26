@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rest2.service.ScoreService;
 import com.example.rest2.service.UserService;
 
+@RestController
 public class Controller {
     private final ScoreService scoreService;
     private final UserService userService;
@@ -22,6 +24,14 @@ public class Controller {
     @GetMapping("/")
     public String getNothing() {
         return "rien";
+    }
+    @GetMapping("/test")
+    public String getNothing2() {
+        return "test";
+    }
+    @GetMapping("/scoreUsers")
+    public @ResponseBody String showScore() {
+        return scoreService.getAllScores();
     }
 
     @PostMapping(path = "/addScoreUser")
@@ -39,5 +49,11 @@ public class Controller {
     public @ResponseBody String deleteUser(@RequestParam String username) {
         return userService.deleteUser(username);
     }
+
+    @PostMapping(path = "/login")
+    public @ResponseBody String loginUser(@RequestParam String username, @RequestParam String password ) {
+        return userService.login(username, password);
+    }
+    
 
 }
