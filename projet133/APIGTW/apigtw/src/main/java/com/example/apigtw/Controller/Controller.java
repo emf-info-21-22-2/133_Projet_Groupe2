@@ -10,15 +10,12 @@ public class Controller {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
-        try {
-            // Effectue la déconnexion en invalidant la session
+        // Vérifie si l'utilisateur est connecté
+        if (session.getAttribute("user") != null) {
             session.invalidate();
-            // Retourne HTTP 200 en cas de succès de la déconnexion
-            return ResponseEntity.ok("Déconnexion réussie");
-        } catch (Exception e) {
-            // Retourne HTTP 400 en cas d'erreur lors de la déconnexion
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erreur lors de la déconnexion : " + e.getMessage());
+            return ResponseEntity.ok("Déconnexion réussie.");
+        } else {
+            return ResponseEntity.ok("Aucun utilisateur n'est connecté.");
         }
     }
 }

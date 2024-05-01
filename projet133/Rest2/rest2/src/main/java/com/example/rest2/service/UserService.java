@@ -33,6 +33,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(hashedPassword);
+        user.setIsAdmin(false);
         userRepository.save(user);
     
         return "User added successfully!";
