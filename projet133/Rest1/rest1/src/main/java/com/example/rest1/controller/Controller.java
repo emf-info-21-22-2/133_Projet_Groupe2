@@ -28,7 +28,7 @@ public class Controller {
     }
 
     @GetMapping("/getQuestions")
-    public @ResponseBody String showScore() {
+    public @ResponseBody String getQuestionsReponses() {
         return reponseService.getAllQuestions();
     }
  
