@@ -3,6 +3,7 @@ package com.example.apigtw.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +33,29 @@ public class Controller {
         }
     }
 
+
+
+
+    //SERVICE REST 1
+
+    @GetMapping("/getQuestions")
+    public ResponseEntity<String> getAllQuestions() {
+        try {
+            // Appelle la méthode du service
+            ResponseEntity<String> response = rest1.getQuestions();
+
+            // Vérifie si la réponse est réussie (code d'état 200)
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // Retourne HTTP 200 avec le corps de la réponse en cas de succès
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                // Retourne HTTP 400 avec un message d'erreur en cas d'échec
+                return ResponseEntity.badRequest().body("Échec de la récupération des questions");
+            }
+        } catch (Exception e) {
+            // Retourne HTTP 400 avec un message d'erreur en cas d'exception
+            return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
+        }
+    }
     
 }
