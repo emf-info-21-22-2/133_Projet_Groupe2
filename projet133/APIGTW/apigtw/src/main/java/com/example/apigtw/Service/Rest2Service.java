@@ -15,12 +15,12 @@ import org.springframework.web.client.RestTemplate;
 public class Rest2Service {
     private final RestTemplate restTemplate;
     private final String baseUrl = "http://localhost:8080";
-
+    @Autowired
     public Rest2Service(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    @Autowired
+   
     public ResponseEntity<String> createUser(String username, String password) {
         String url = baseUrl + "/addUser"; // Ajustez selon l'API que vous appelez
 

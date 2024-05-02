@@ -16,12 +16,12 @@ public class Rest1Service {
 
     private final RestTemplate restTemplate;
     private final String base_url = "http://localhost:8080";
-
+    @Autowired
     public Rest1Service(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    @Autowired
+    
     public ResponseEntity<String> createQuestion(String enoncer) {
         String url = base_url + "/addQuestion"; // Ajustez selon l'API que vous appelez
 
@@ -41,7 +41,7 @@ public class Rest1Service {
                 .body("Erreur lors de la création de la question");
     }
 
-    @Autowired
+    
     public ResponseEntity<String> deleteQuestion(int id) {
         String url = base_url + "/deleteQuestion"; // Ajustez selon l'API que vous appelez
 
@@ -60,8 +60,6 @@ public class Rest1Service {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Erreur lors de la suppression de la question");
     }
-
-    @Autowired
     public ResponseEntity<String> getQuestions() {
         String url = base_url + "/getQuestions"; // Ajustez selon l'API que vous appelez
 
@@ -82,7 +80,6 @@ public class Rest1Service {
     }
 
 
-    @Autowired
     public ResponseEntity<String> createReponse(String reponse, boolean correcte, int question) {
         String url = base_url + "/addReponse"; // Ajustez selon l'API que vous appelez
 
@@ -109,7 +106,7 @@ public class Rest1Service {
     }
 
 
-    @Autowired
+    
     public ResponseEntity<String> deleteReponse(int id) {
         String url = base_url + "/deleteReponse"; // Ajustez selon l'API que vous appelez
 
@@ -130,7 +127,7 @@ public class Rest1Service {
     }
 
 
-    @Autowired
+    
     public ResponseEntity<String> checkReponse(ReponseDTO reponse) {
         String url = base_url + "/checkReponse"; // Ajustez selon l'API que vous appelez
 
