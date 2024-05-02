@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Map.Entry;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,11 +75,7 @@ public String getAllQuestions() {
         questionReponses.get(question).add(reponse.getReponse());
     }
 
-    StringBuilder sb = new StringBuilder();
-    for (Entry<String, List<String>> entry : questionReponses.entrySet()) {
-        sb.append(entry.getKey()).append(": ").append(entry.getValue().toString()).append("\n");
-    }
-
-    return sb.toString();
+    JSONObject json = new JSONObject(questionReponses);
+    return json.toString();
 }
 }

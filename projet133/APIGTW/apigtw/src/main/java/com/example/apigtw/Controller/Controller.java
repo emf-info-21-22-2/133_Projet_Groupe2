@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.apigtw.Service.Rest1Service;
 import com.example.apigtw.Service.Rest2Service;
+import com.example.apigtw.dto.ReponseDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -38,7 +39,7 @@ public class Controller {
 
 
 
-
+    //Methode du REST 1
 
     @GetMapping("/getQuestions")
     public ResponseEntity<String> getAllQuestions() {
@@ -59,20 +60,77 @@ public class Controller {
             return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
         }
     }
-    
-    @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestParam String username,
-            @RequestParam String password) {
+
+    @PostMapping("/addQuestion")
+    public ResponseEntity<String> addQuestion(@RequestParam String enoncer) {
         try {
             // Ajoute l'utilisateur en utilisant le service approprié
-            rest2.createUser(username, password);
+            rest1.createQuestion(enoncer);
             // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
-            return ResponseEntity.ok("Utilisateur ajouté avec succès");
+            return ResponseEntity.ok("Question ajouté avec succès");
         } catch (Exception e) {
             // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erreur lors de l'ajout de l'utilisateur : " + e.getMessage());
+                    .body("Erreur lors de l'ajout de la question : " + e.getMessage());
         }
     }
+
+
+    @PostMapping("/deleteQuestion")
+    public ResponseEntity<String> deleteQuestion(@RequestParam Integer id) {
+        try {
+            // Ajoute l'utilisateur en utilisant le service approprié
+            rest1.deleteQuestion(id);
+            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
+            return ResponseEntity.ok("Question supprimé avec succès");
+        } catch (Exception e) {
+            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erreur lors de la suppression de la question : " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/addReponse")
+    public ResponseEntity<String> addReponse(@RequestParam String reponse, @RequestParam Boolean correcte, @RequestParam Integer fk_question) {
+        try {
+            // Ajoute l'utilisateur en utilisant le service approprié
+            rest1.createReponse(reponse, correcte, fk_question);
+            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
+            return ResponseEntity.ok("Reponse ajouté avec succès");
+        } catch (Exception e) {
+            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erreur lors de l'ajout de la reponse : " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/deleteReponse")
+    public ResponseEntity<String> deleteReponse(@RequestParam Integer id) {
+        try {
+            // Ajoute l'utilisateur en utilisant le service approprié
+            rest1.deleteReponse(id);
+            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
+            return ResponseEntity.ok("Reponse supprimé avec succès");
+        } catch (Exception e) {
+            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erreur lors de la suppression de la reponse : " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/checkReponse")
+    public ResponseEntity<String> checkReponse(@RequestParam ReponseDTO reponse) {
+        try {
+            // Ajoute l'utilisateur en utilisant le service approprié
+            rest1.checkReponse(reponse);
+            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
+            return ResponseEntity.ok("Reponse check avec succès");
+        } catch (Exception e) {
+            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erreur lors du check de la reponse : " + e.getMessage());
+        }
+    }
+    
 
 }
