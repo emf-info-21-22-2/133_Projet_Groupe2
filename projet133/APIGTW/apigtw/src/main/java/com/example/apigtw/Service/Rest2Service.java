@@ -15,9 +15,9 @@ import org.springframework.web.client.RestTemplate;
 public class Rest2Service {
     private final RestTemplate restTemplate;
     private final String baseUrl = "http://localhost:8080";
-    @Autowired
-    public Rest2Service(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    
+    public Rest2Service() {
+        restTemplate = new RestTemplate();
     }
 
    

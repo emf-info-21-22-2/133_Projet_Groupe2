@@ -8,17 +8,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import com.example.apigtw.dto.ReponseDTO;
 
 @Service
 public class Rest1Service {
 
     private final RestTemplate restTemplate;
-    private final String base_url = "http://localhost:8080";
-    @Autowired
-    public Rest1Service(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    private final String base_url = "http://localhost:8081";
+    
+    
+    public Rest1Service() {
+        restTemplate = new RestTemplate();
     }
 
     
@@ -32,7 +32,7 @@ public class Rest1Service {
         // {"status":"success"} en cas de succès
         if (response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
-            if (responseBody != null && responseBody.contains("\"status\":\"success\"")) {
+            if (responseBody != null) {
                 return ResponseEntity.ok("Question créé avec succès");
             }
         }
@@ -52,7 +52,7 @@ public class Rest1Service {
         // {"status":"success"} en cas de succès
         if (response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
-            if (responseBody != null && responseBody.contains("\"status\":\"success\"")) {
+            if (responseBody != null) {
                 return ResponseEntity.ok("Question supprimée avec succès");
             }
         }
@@ -70,7 +70,7 @@ public class Rest1Service {
         // {"status":"success", "data": [{...}]} en cas de succès
         if (response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
-            if (responseBody != null && responseBody.contains("\"status\":\"success\"")) {
+            if (responseBody != null) {
                 return ResponseEntity.ok(responseBody);
             }
         }
@@ -96,7 +96,7 @@ public class Rest1Service {
         // {"status":"success"} en cas de succès
         if (response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
-            if (responseBody != null && responseBody.contains("\"status\":\"success\"")) {
+            if (responseBody != null) {
                 return ResponseEntity.ok("Reponse créé avec succès");
             }
         }
@@ -117,7 +117,7 @@ public class Rest1Service {
         // {"status":"success"} en cas de succès
         if (response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
-            if (responseBody != null && responseBody.contains("\"status\":\"success\"")) {
+            if (responseBody != null) {
                 return ResponseEntity.ok("Reponse supprimée avec succès");
             }
         }
@@ -142,7 +142,7 @@ public class Rest1Service {
         // {"status":"success"} en cas de succès
         if (response.getStatusCode().is2xxSuccessful()) {
             String responseBody = response.getBody();
-            if (responseBody != null && responseBody.contains("\"status\":\"success\"")) {
+            if (responseBody != null) {
                 return ResponseEntity.ok("Reponse check avec succès");
             }
         }

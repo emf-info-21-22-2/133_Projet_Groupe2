@@ -24,7 +24,7 @@ public class Controller {
  
     @GetMapping("/")
     public String getNothing() {
-        return "Bonsoir la team";
+        return "Bonsoir voici la page d'acceuill";
     }
 
     @GetMapping("/getQuestions")

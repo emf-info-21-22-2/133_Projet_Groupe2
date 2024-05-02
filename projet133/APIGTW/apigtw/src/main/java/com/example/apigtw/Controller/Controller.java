@@ -19,9 +19,9 @@ public class Controller {
     private final Rest2Service rest2;
 
     @Autowired
-    public Controller(Rest1Service rest1, Rest2Service rest2) {
-        this.rest1 = rest1;
-        this.rest2 = rest2;
+    public Controller() {
+        rest1 = new Rest1Service();
+        rest2 = new Rest2Service();
     }
 
     // Service rest2
@@ -39,7 +39,6 @@ public class Controller {
 
 
 
-    //SERVICE REST 1
 
     @GetMapping("/getQuestions")
     public ResponseEntity<String> getAllQuestions() {
