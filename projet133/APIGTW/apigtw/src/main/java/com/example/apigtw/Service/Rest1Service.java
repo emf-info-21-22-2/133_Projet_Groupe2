@@ -13,7 +13,7 @@ import com.example.apigtw.dto.ReponseDTO;
 public class Rest1Service {
 
     private final RestTemplate restTemplate;
-    private final String base_url = "http://api-externe.com:8180";
+    private final String base_url = "http://localhost:8080";
 
     public Rest1Service(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
