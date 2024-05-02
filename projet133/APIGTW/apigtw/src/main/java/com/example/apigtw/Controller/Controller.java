@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.apigtw.Service.Rest1Service;
 import com.example.apigtw.Service.Rest2Service;
 
 import jakarta.servlet.http.HttpSession;
-
+@RestController
 public class Controller {
     private final Rest1Service rest1;
     private final Rest2Service rest2;
