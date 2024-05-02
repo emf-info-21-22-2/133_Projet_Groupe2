@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class Rest2Service {
     private final RestTemplate restTemplate;
-    private final String baseUrl = "http://localhost:8080";
+    private final String baseUrl = "http://localhost:8082";
     
     public Rest2Service() {
         restTemplate = new RestTemplate();
@@ -110,6 +110,24 @@ public class Rest2Service {
         // Si quelque chose ne va pas, renvoyer une erreur
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Erreur lors de l'ajout");
+    }
+    public ResponseEntity<String> getScoresUsers() {
+        String url = baseUrl + "/scoreUsers"; // Ajustez selon l'API que vous appelez
+
+        // Effectuer l'appel API et recevoir la réponse
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        // Supposons que l'API renvoie un statut 200 avec un corps contenant
+        // {"status":"success", "data": [{...}]} en cas de succès
+        if (response.getStatusCode().is2xxSuccessful()) {
+            String responseBody = response.getBody();
+            if (responseBody != null) {
+                return ResponseEntity.ok(responseBody);
+            }
+        }
+        // Si quelque chose ne va pas, renvoyer une erreur
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erreur lors de la récupération des questions");
     }
 
 
