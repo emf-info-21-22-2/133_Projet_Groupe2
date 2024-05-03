@@ -37,9 +37,29 @@ public class Controller {
         }
     }
 
+    @PostMapping("/addUser")
+public ResponseEntity<String> addUser(@RequestParam String username,
+        @RequestParam String password) {
+    if(username == null || username.isEmpty() || password == null || password.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Le nom d'utilisateur et le mot de passe ne peuvent pas être vides");
+    }
+    try {
+        // Ajoute l'utilisateur en utilisant le service approprié
+        rest2.createUser(username, password);
+        // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
+        return ResponseEntity.ok("Utilisateur ajouté avec succès");
+    } catch (Exception e) {
+        // Log pour plus de détails
+        e.printStackTrace();
+        // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Erreur lors de l'ajout de l'utilisateur : " + e.getMessage());
+    }
+}
 
 
-    //Methode du REST 1
+    // Methode du REST 1
 
     @GetMapping("/getQuestions")
     public ResponseEntity<String> getAllQuestions() {
@@ -74,6 +94,7 @@ public class Controller {
                     .body("Erreur lors de l'ajout de la question : " + e.getMessage());
         }
     }
+
     @GetMapping("/getScoresUser")
     public ResponseEntity<String> getAllScoresUser() {
         try {
@@ -93,8 +114,6 @@ public class Controller {
             return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
         }
     }
-    
-
 
     @PostMapping("/deleteQuestion")
     public ResponseEntity<String> deleteQuestion(@RequestParam Integer id) {
@@ -111,7 +130,8 @@ public class Controller {
     }
 
     @PostMapping("/addReponse")
-    public ResponseEntity<String> addReponse(@RequestParam String reponse, @RequestParam Boolean correcte, @RequestParam Integer fk_question) {
+    public ResponseEntity<String> addReponse(@RequestParam String reponse, @RequestParam Boolean correcte,
+            @RequestParam Integer fk_question) {
         try {
             // Ajoute l'utilisateur en utilisant le service approprié
             rest1.createReponse(reponse, correcte, fk_question);
@@ -151,6 +171,5 @@ public class Controller {
                     .body("Erreur lors du check de la reponse : " + e.getMessage());
         }
     }
-    
 
 }
