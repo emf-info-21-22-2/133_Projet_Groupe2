@@ -1,6 +1,8 @@
 package com.example.rest1.controller;
  
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,28 +35,28 @@ public class Controller {
     }
  
     @PostMapping(path = "/addQuestion")
-    public @ResponseBody String addNewQuestion(@RequestParam String enoncer) {
+    public @ResponseBody ResponseEntity<String> addNewQuestion(@RequestParam String enoncer) {
         return questionService.addNewQuestion(enoncer);
     }
 
     @PostMapping(path = "/deleteQuestion")
-    public @ResponseBody String deleteQuestion(@RequestParam int id) {
+    public @ResponseBody ResponseEntity<String> deleteQuestion(@RequestParam int id) {
         return questionService.deleteQuestion(id);
     }
 
     @PostMapping(path = "/addReponse")
-    public @ResponseBody String addNewReponse(@RequestParam String newReponse, @RequestParam boolean correcte, @RequestParam int question) {
+    public @ResponseBody ResponseEntity<String> addNewReponse(@RequestParam String newReponse, @RequestParam boolean correcte, @RequestParam int question) {
         return reponseService.addNewReponse(newReponse, correcte, question);
     }
 
     @PostMapping(path = "/deleteReponse")
-    public @ResponseBody String deleteReponse(@RequestParam int id) {
+    public @ResponseBody ResponseEntity<String> deleteReponse(@RequestParam int id) {
         return reponseService.deleteReponse(id);
     }
 
     @PostMapping(path = "/checkReponse")
-    public @ResponseBody boolean checkReponse(@RequestParam Reponse reponseAChecker) {
-        return reponseService.checkReponse(reponseAChecker);
+    public @ResponseBody boolean checkReponse(@RequestParam Integer idReponse) {
+        return reponseService.checkReponse(idReponse);
     }
 
 

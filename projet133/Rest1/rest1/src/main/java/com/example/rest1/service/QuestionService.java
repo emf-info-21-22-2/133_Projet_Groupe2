@@ -3,6 +3,8 @@ package com.example.rest1.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.rest1.model.Question;
@@ -19,25 +21,22 @@ public class QuestionService{
     }
 
     @Transactional
-    public String addNewQuestion(String enoncer) {
+    public ResponseEntity<String> addNewQuestion(String enoncer) {
         Question newQuestion = new Question();
         newQuestion.setEnoncer(enoncer);
         questionRepository.save(newQuestion);
-        return "Ajout question réussi";
+        return ResponseEntity.ok("Question crée avec succès");
     }
 
 @Transactional
-public String deleteQuestion(Integer id) {
+public ResponseEntity<String> deleteQuestion(Integer id) {
     Optional<Question> optionalQuestion = questionRepository.findById(id);
     if (optionalQuestion.isPresent()) {
         questionRepository.delete(optionalQuestion.get());
-        return "Suppression question réussie";
+        return ResponseEntity.ok("Question supprimée avec succès");
     } else {
-        return "Question non trouvée";
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Question non trouvée");
     }
 }
-
-
-
 
 }

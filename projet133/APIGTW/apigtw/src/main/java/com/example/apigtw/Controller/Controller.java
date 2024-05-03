@@ -3,6 +3,7 @@ package com.example.apigtw.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -215,11 +216,11 @@ public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSess
     }
 
     @PostMapping("/addReponse")
-    public ResponseEntity<String> addReponse(@RequestParam String reponse, @RequestParam Boolean correcte,
-            @RequestParam Integer fk_question) {
+    public ResponseEntity<String> addReponse(@RequestParam String newReponse, @RequestParam Boolean correcte,
+            @RequestParam Integer question) {
         try {
             // Ajoute l'utilisateur en utilisant le service approprié
-            rest1.createReponse(reponse, correcte, fk_question);
+            rest1.createReponse(newReponse, correcte, question);
             // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
             return ResponseEntity.ok("Reponse ajouté avec succès");
         } catch (Exception e) {
@@ -244,17 +245,18 @@ public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSess
     }
 
     @PostMapping("/checkReponse")
-    public ResponseEntity<String> checkReponse(@RequestParam ReponseDTO reponse) {
+    public ResponseEntity<String> checkReponse(@RequestParam Integer idReponse) {
         try {
-            // Ajoute l'utilisateur en utilisant le service approprié
-            rest1.checkReponse(reponse);
-            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
-            return ResponseEntity.ok("Reponse check avec succès");
+            // Vérifie la réponse en utilisant le service approprié
+            ResponseEntity<String> reponseEntity = rest1.checkReponse(idReponse);
+            // Retourne le corps de la réponse de la méthode checkReponse
+            return ResponseEntity.ok(reponseEntity.getBody());
         } catch (Exception e) {
-            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+            // Retourne HTTP 400 en cas d'erreur lors de la vérification de la réponse
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Erreur lors du check de la reponse : " + e.getMessage());
         }
     }
+    
 
 }
