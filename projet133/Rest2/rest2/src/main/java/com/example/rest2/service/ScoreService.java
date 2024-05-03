@@ -1,5 +1,6 @@
 package com.example.rest2.service;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.rest2.model.User;
@@ -60,12 +61,8 @@ public class ScoreService {
             userScores.get(username).add(score.getPoint());
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, List<Integer>> entry : userScores.entrySet()) {
-            sb.append(entry.getKey()).append(": ").append(entry.getValue().toString()).append("\n");
-        }
-
-        return sb.toString();
+        JSONObject json = new JSONObject(userScores);
+    return json.toString();
     }
 
 }
