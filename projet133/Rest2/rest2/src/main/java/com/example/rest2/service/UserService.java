@@ -12,14 +12,12 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
-   
+
     private final UserRepository userRepository;
-    
-  
 
     @Autowired
     public UserService(UserRepository userRepository) {
-       
+
         this.userRepository = userRepository;
     }
 
@@ -29,16 +27,16 @@ public class UserService {
             throw new IllegalArgumentException("L'utilisateur existe déjà");
         }
         String hashedPassword = DigestUtils.sha256Hex(password);
-    
+
         User user = new User();
         user.setUsername(username);
         user.setPassword(hashedPassword);
         user.setIsAdmin(false);
         userRepository.save(user);
-    
+
         return "User added successfully!";
     }
-    
+
     @Transactional
     public String deleteUser(String username) {
         User user = userRepository.findByUsername(username);
@@ -49,18 +47,20 @@ public class UserService {
             return "Utilisateur non trouvé!";
         }
     }
-    @Transactional
-    public String login(String username, String password) {
-        User user = userRepository.findByUsername(username);
 
-        if (user != null && user.getPassword().equals(password)) {
-            return "Login réussi : " + user.getUsername();
-        } else {
-            throw new IllegalArgumentException("Nom d'utilisateur ou mot de passe incorrect");
+    @Transactional
+    public String loginUser(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new IllegalArgumentException("L'utilisateur n'existe pas");
         }
+        String hashedPassword = DigestUtils.sha256Hex(password);
+        if (!user.getPassword().equals(hashedPassword)) {
+            throw new IllegalArgumentException("Mot de passe incorrect");
+        }
+        // Ici, vous pouvez ajouter la logique pour gérer une session utilisateur ou un
+        // token d'authentification
+        return "Connexion réussie!";
     }
-    
-    
-    
-    
+
 }

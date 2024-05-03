@@ -26,6 +26,25 @@ public class Controller {
     }
 
     // Service rest2
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String username,
+            @RequestParam String password, HttpSession session) {
+        try {
+            // Tentez de vous connecter en utilisant le service approprié
+            rest2.login(username, password);
+    
+            // Si le login est réussi, ajoutez l'utilisateur à la session
+            session.setAttribute("username", username);
+    
+            // Retourne HTTP 200 avec un message de succès
+            return ResponseEntity.ok("Connexion réussie");
+        } catch (Exception e) {
+            // En cas d'échec de la connexion, retournez HTTP 401 Unauthorized
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Échec de la connexion : " + e.getMessage());
+        }
+    }
+    
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
         // Vérifie si l'utilisateur est connecté
@@ -57,6 +76,25 @@ public ResponseEntity<String> addUser(@RequestParam String username,
                 .body("Erreur lors de l'ajout de l'utilisateur : " + e.getMessage());
     }
 }
+@GetMapping("/getScoresUser")
+    public ResponseEntity<String> getAllScoresUser() {
+        try {
+            // Appelle la méthode du service
+            ResponseEntity<String> response = rest2.getScoresUsers();
+
+            // Vérifie si la réponse est réussie (code d'état 200)
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // Retourne HTTP 200 avec le corps de la réponse en cas de succès
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                // Retourne HTTP 400 avec un message d'erreur en cas d'échec
+                return ResponseEntity.badRequest().body("Échec de la récupération des questions");
+            }
+        } catch (Exception e) {
+            // Retourne HTTP 400 avec un message d'erreur en cas d'exception
+            return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
+        }
+    }
 
 
     // Methode du REST 1
@@ -95,25 +133,7 @@ public ResponseEntity<String> addUser(@RequestParam String username,
         }
     }
 
-    @GetMapping("/getScoresUser")
-    public ResponseEntity<String> getAllScoresUser() {
-        try {
-            // Appelle la méthode du service
-            ResponseEntity<String> response = rest2.getScoresUsers();
-
-            // Vérifie si la réponse est réussie (code d'état 200)
-            if (response.getStatusCode().is2xxSuccessful()) {
-                // Retourne HTTP 200 avec le corps de la réponse en cas de succès
-                return ResponseEntity.ok(response.getBody());
-            } else {
-                // Retourne HTTP 400 avec un message d'erreur en cas d'échec
-                return ResponseEntity.badRequest().body("Échec de la récupération des questions");
-            }
-        } catch (Exception e) {
-            // Retourne HTTP 400 avec un message d'erreur en cas d'exception
-            return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
-        }
-    }
+    
 
     @PostMapping("/deleteQuestion")
     public ResponseEntity<String> deleteQuestion(@RequestParam Integer id) {

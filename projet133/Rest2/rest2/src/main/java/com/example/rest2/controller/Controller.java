@@ -52,7 +52,7 @@ public class Controller {
 
     @PostMapping(path = "/login")
     public @ResponseBody String loginUser(@RequestParam String username, @RequestParam String password ) {
-        return userService.login(username, password);
+        return userService.loginUser(username, password);
     }
     
 

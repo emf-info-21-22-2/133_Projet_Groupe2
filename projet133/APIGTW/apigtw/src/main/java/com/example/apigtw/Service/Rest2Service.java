@@ -62,29 +62,32 @@ public class Rest2Service {
     
 
     public ResponseEntity<String> login(String username, String password) {
-        String url = baseUrl + "/login"; // Ajustez selon l'API que vous appelez
-
-        // Préparer la requête
-        Map<String, String> credentials = new HashMap<>();
-        credentials.put("username", username);
-        credentials.put("password", password);
-
+        String url = baseUrl + "/login";
+    
+        
+    
+        // Créer le corps de la requête avec les informations d'identification
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("username", username);
+        requestBody.put("password", password);
+    
+        // Créer l'objet HttpEntity avec les en-têtes et le corps de la requête
+      
+    
         // Effectuer l'appel API et recevoir la réponse
-        ResponseEntity<String> response = restTemplate.postForEntity(url, credentials, String.class);
-
-        // Supposons que l'API renvoie un statut 200 avec un corps contenant
+        ResponseEntity<String> response = restTemplate.postForEntity(url, requestBody, String.class);
+    
+        // Vérifier si la demande a réussi
         if (response.getStatusCode().is2xxSuccessful()) {
-
-            // Configurer la session en cas de succès
-
-            return ResponseEntity.ok("Utilisateur créé avec succès");
-
+            // Gérer la réponse réussie, configurer la session, etc.
+            return ResponseEntity.ok("Connexion réussie");
+        } else {
+            // Gérer l'échec de la demande
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Échec de la connexion : " + response.getBody());
         }
-
-        // Si quelque chose ne va pas, renvoyer une erreur
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erreur lors de la création de l'utilisateur");
     }
+    
 
     public ResponseEntity<String> deleteUser(String username) {
         // Appeler votre API Gateway pour gérer la déconnexion
