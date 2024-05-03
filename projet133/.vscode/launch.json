@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "ApigtwApplication",
+            "request": "launch",
+            "mainClass": "com.example.apigtw.ApigtwApplication",
+            "projectName": "apigtw"
+        },
+        {
+            "type": "java",
+            "name": "Rest1Application",
+            "request": "launch",
+            "mainClass": "com.example.rest1.Rest1Application",
+            "projectName": "rest1"
+        },
+        {
+            "type": "java",
+            "name": "Rest2Application",
+            "request": "launch",
+            "mainClass": "com.example.rest2.Rest2Application",
+            "projectName": "rest2"
+        }
+    ]
+}
