@@ -1,5 +1,6 @@
 package com.example.apigtw.Service;
 
+
 import java.net.http.HttpHeaders;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,6 +24,25 @@ public class Rest2Service {
     
     public Rest2Service() {
         restTemplate = new RestTemplate();
+    }
+    public ResponseEntity<Integer> getIdUser(String username) {
+        // Appeler votre API Gateway pour gérer la déconnexion
+        String url = baseUrl + "/getId";
+        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+
+
+        // Effectuer la requête POST pour la déconnexion
+        ResponseEntity<Integer> response = restTemplate.postForEntity(url, params, Integer.class);
+
+        // Retourner la réponse avec le code de statut approprié et un message
+        if (response.getStatusCode().is2xxSuccessful()) {
+            // Succès (code de statut dans la plage des 2xx)
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            // Erreur (code de statut dans la plage des 4xx)
+            return ResponseEntity.badRequest().body(-1); 
+        }
     }
 
    
@@ -61,32 +82,32 @@ public class Rest2Service {
     }
     
 
-    public ResponseEntity<String> login(String username, String password) {
+    public ResponseEntity<String> login( String username,  String password) {
         String url = baseUrl + "/login";
-    
-        
-    
-        // Créer le corps de la requête avec les informations d'identification
-        Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("username", username);
-        requestBody.put("password", password);
-    
-        // Créer l'objet HttpEntity avec les en-têtes et le corps de la requête
-      
-    
-        // Effectuer l'appel API et recevoir la réponse
-        ResponseEntity<String> response = restTemplate.postForEntity(url, requestBody, String.class);
-    
-        // Vérifier si la demande a réussi
-        if (response.getStatusCode().is2xxSuccessful()) {
-            // Gérer la réponse réussie, configurer la session, etc.
-            return ResponseEntity.ok("Connexion réussie");
-        } else {
-            // Gérer l'échec de la demande
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Échec de la connexion : " + response.getBody());
-        }
+
+        LinkedMultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        params.add("password", password);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(url, params, String.class);
+
+        /*HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);*/
+            // Vérifier la réponse
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // Traitement réussi
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                // Gérer les erreurs si nécessaire
+                return ResponseEntity.badRequest().body(response.getBody());
+            }
+        /* } catch (HttpClientErrorException.BadRequest ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Le username ou le password est faux !!");
+        }*/
     }
+    
     
 
     public ResponseEntity<String> deleteUser(String username) {

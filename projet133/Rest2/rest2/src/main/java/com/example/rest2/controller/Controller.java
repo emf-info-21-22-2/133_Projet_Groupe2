@@ -1,6 +1,7 @@
 package com.example.rest2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +26,12 @@ public class Controller {
     public String getNothing() {
         return "rien";
     }
+
     @GetMapping("/test")
     public String getNothing2() {
         return "test";
     }
+
     @GetMapping("/scoreUsers")
     public @ResponseBody String showScore() {
         return scoreService.getAllScores();
@@ -51,9 +54,16 @@ public class Controller {
     }
 
     @PostMapping(path = "/login")
-    public @ResponseBody String loginUser(@RequestParam String username, @RequestParam String password ) {
-        return userService.loginUser(username, password);
+    public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
+        ResponseEntity<String> response = userService.loginUser(username, password);
+        return response;
     }
-    
+
+    @PostMapping(path = "/getId")
+    public Integer getId(@RequestParam String username) {
+        Integer response = userService.getUsernameId(username);
+
+        return response;
+    }
 
 }

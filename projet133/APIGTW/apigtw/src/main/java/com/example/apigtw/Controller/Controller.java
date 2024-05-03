@@ -24,26 +24,32 @@ public class Controller {
         rest1 = new Rest1Service();
         rest2 = new Rest2Service();
     }
+    
 
     // Service rest2
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username,
-            @RequestParam String password, HttpSession session) {
-        try {
-            // Tentez de vous connecter en utilisant le service approprié
-            rest2.login(username, password);
-    
-            // Si le login est réussi, ajoutez l'utilisateur à la session
-            session.setAttribute("username", username);
-    
-            // Retourne HTTP 200 avec un message de succès
-            return ResponseEntity.ok("Connexion réussie");
-        } catch (Exception e) {
-            // En cas d'échec de la connexion, retournez HTTP 401 Unauthorized
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Échec de la connexion : " + e.getMessage());
-        }
+public ResponseEntity<String> login(@RequestParam String username,
+        @RequestParam String password, HttpSession session) {
+    try {
+        // Tentez de vous connecter en utilisant le service approprié
+        rest2.login(username, password);
+
+        // Si le login est réussi, ajoutez l'utilisateur à la session
+        session.setAttribute("username", username);
+
+        // Construire un message avec les détails de la session
+        String sessionDetails = "Session ID: " + session.getId() + 
+                                ", Utilisateur connecté: " + session.getAttribute("username");
+
+        // Retourne HTTP 200 avec un message de succès et les détails de la session
+        return ResponseEntity.ok("Connexion réussie. " + sessionDetails);
+    } catch (Exception e) {
+        // En cas d'échec de la connexion, retournez HTTP 401 Unauthorized
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body("Échec de la connexion : " + e.getMessage());
     }
+}
+
     
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
@@ -95,6 +101,65 @@ public ResponseEntity<String> addUser(@RequestParam String username,
             return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
         }
     }
+   /*  @PostMapping("/addScoreUser")
+public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSession session) {
+    
+}*/
+
+
+@PostMapping("/getIdUser")
+public ResponseEntity<Integer> getIdUser(@RequestParam String username) {
+    try {
+        // Appelle la méthode du service
+        ResponseEntity<Integer> response = rest2.getIdUser(username);
+
+        // Vérifie si la réponse est réussie (code d'état 200)
+        if (response.getStatusCode().is2xxSuccessful()) {
+            // Retourne HTTP 200 avec le corps de la réponse en cas de succès
+            return ResponseEntity.ok(response.getBody());
+        } else {
+            // Retourne HTTP 400 avec un message d'erreur en cas d'échec
+            return ResponseEntity.badRequest().body(-1); 
+        }
+    } catch (Exception e) {
+        // Retourne HTTP 400 avec un message d'erreur en cas d'exception
+        return ResponseEntity.badRequest().body(-1); 
+    }
+}
+@PostMapping("/addScoreUser")
+public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSession session) {
+    // Récupérer le nom d'utilisateur de la session
+    String username = (String) session.getAttribute("username");
+
+    try {
+        // Appeler la méthode pour obtenir l'ID de l'utilisateur
+        ResponseEntity<Integer> idResponse = getIdUser(username);
+
+        // Vérifier si la réponse est réussie (code d'état 200)
+        if (idResponse.getStatusCode().is2xxSuccessful()) {
+            // Récupérer l'ID de l'utilisateur à partir de la réponse
+            Integer userId = idResponse.getBody();
+
+            // Appeler la méthode pour ajouter le score à l'utilisateur
+            ResponseEntity<String> response = rest2.addScoreUser(point, userId);
+
+            // Vérifier si l'ajout du score est réussi
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // Configurer la session en cas de succès (si nécessaire)
+                // Supposons que vous deviez faire quelque chose avec la session
+
+                return ResponseEntity.ok("Score ajouté avec succès");
+            } else {
+                return ResponseEntity.badRequest().body("Échec de l'ajout du score");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Échec de l'obtention de l'ID de l'utilisateur");
+        }
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
+    }
+}
+
 
 
     // Methode du REST 1
