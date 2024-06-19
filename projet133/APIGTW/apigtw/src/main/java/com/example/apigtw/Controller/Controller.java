@@ -127,28 +127,32 @@ public ResponseEntity<Integer> getIdUser(@RequestParam String username) {
         return ResponseEntity.badRequest().body(-1); 
     }
 }
+
 @PostMapping("/addScoreUser")
 public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSession session) {
-    // Récupérer le nom d'utilisateur de la session
+    // Vérifier si la session existe en vérifiant la présence du nom d'utilisateur
     String username = (String) session.getAttribute("username");
-
+    if (username == null) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+    }
+ 
     try {
         // Appeler la méthode pour obtenir l'ID de l'utilisateur
         ResponseEntity<Integer> idResponse = getIdUser(username);
-
+ 
         // Vérifier si la réponse est réussie (code d'état 200)
         if (idResponse.getStatusCode().is2xxSuccessful()) {
             // Récupérer l'ID de l'utilisateur à partir de la réponse
             Integer userId = idResponse.getBody();
-
+ 
             // Appeler la méthode pour ajouter le score à l'utilisateur
             ResponseEntity<String> response = rest2.addScoreUser(point, userId);
-
+ 
             // Vérifier si l'ajout du score est réussi
             if (response.getStatusCode().is2xxSuccessful()) {
                 // Configurer la session en cas de succès (si nécessaire)
                 // Supposons que vous deviez faire quelque chose avec la session
-
+ 
                 return ResponseEntity.ok("Score ajouté avec succès");
             } else {
                 return ResponseEntity.badRequest().body("Échec de l'ajout du score");
@@ -160,8 +164,6 @@ public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSess
         return ResponseEntity.badRequest().body("Erreur : " + e.getMessage());
     }
 }
-
-
 
     // Methode du REST 1
 
@@ -186,63 +188,106 @@ public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSess
     }
 
     @PostMapping("/addQuestion")
-    public ResponseEntity<String> addQuestion(@RequestParam String enoncer) {
+    
+    public ResponseEntity<String> addQuestion(@RequestParam String enoncer, HttpSession session) {
+    
+        // Vérifier si la session existe en vérifiant la présence du nom d'utilisateur
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+        }
+     
         try {
             // Ajoute l'utilisateur en utilisant le service approprié
             rest1.createQuestion(enoncer);
             // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
-            return ResponseEntity.ok("Question ajouté avec succès");
+            return ResponseEntity.ok("Question ajoutée avec succès");
         } catch (Exception e) {
             // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Erreur lors de l'ajout de la question : " + e.getMessage());
         }
-    }
-
     
-
+    }
+    
     @PostMapping("/deleteQuestion")
-    public ResponseEntity<String> deleteQuestion(@RequestParam Integer id) {
+    
+    public ResponseEntity<String> deleteQuestion(@RequestParam Integer id, HttpSession session) {
+    
+        // Vérifier si la session existe en vérifiant la présence du nom d'utilisateur
+        String username = (String) session.getAttribute("username");
+    
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+        }
+     
         try {
-            // Ajoute l'utilisateur en utilisant le service approprié
+    
+            // Supprime la question en utilisant le service approprié
             rest1.deleteQuestion(id);
-            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
-            return ResponseEntity.ok("Question supprimé avec succès");
+    
+            // Retourne HTTP 200 en cas de succès de la suppression de l'utilisateur
+            return ResponseEntity.ok("Question supprimée avec succès");
+    
         } catch (Exception e) {
-            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
+            // Retourne HTTP 400 en cas d'erreur lors de la suppression de l'utilisateur
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Erreur lors de la suppression de la question : " + e.getMessage());
         }
+    
     }
-
+    
     @PostMapping("/addReponse")
+    
     public ResponseEntity<String> addReponse(@RequestParam String newReponse, @RequestParam Boolean correcte,
-            @RequestParam Integer question) {
+    
+            @RequestParam Integer question, HttpSession session) {
+        // Vérifier si la session existe en vérifiant la présence du nom d'utilisateur
+        String username = (String) session.getAttribute("username");
+    
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+        }
+     
         try {
-            // Ajoute l'utilisateur en utilisant le service approprié
+    
+            // Ajoute la réponse en utilisant le service approprié
             rest1.createReponse(newReponse, correcte, question);
-            // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
-            return ResponseEntity.ok("Reponse ajouté avec succès");
-        } catch (Exception e) {
-            // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erreur lors de l'ajout de la reponse : " + e.getMessage());
-        }
-    }
 
-    @PostMapping("/deleteReponse")
-    public ResponseEntity<String> deleteReponse(@RequestParam Integer id) {
-        try {
-            // Ajoute l'utilisateur en utilisant le service approprié
-            rest1.deleteReponse(id);
             // Retourne HTTP 200 en cas de succès de l'ajout de l'utilisateur
-            return ResponseEntity.ok("Reponse supprimé avec succès");
+            return ResponseEntity.ok("Réponse ajoutée avec succès");
+
         } catch (Exception e) {
             // Retourne HTTP 400 en cas d'erreur lors de l'ajout de l'utilisateur
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erreur lors de la suppression de la reponse : " + e.getMessage());
+                    .body("Erreur lors de l'ajout de la réponse : " + e.getMessage());
+    
+        }
+    
+    }
+    @PostMapping("/deleteReponse")
+    
+    public ResponseEntity<String> deleteReponse(@RequestParam Integer id, HttpSession session) {
+    
+        // Vérifier si la session existe en vérifiant la présence du nom d'utilisateur
+        String username = (String) session.getAttribute("username");
+    
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+        }
+        try {
+            // Supprime la réponse en utilisant le service approprié
+            rest1.deleteReponse(id);
+    
+            // Retourne HTTP 200 en cas de succès de la suppression de l'utilisateur
+            return ResponseEntity.ok("Réponse supprimée avec succès");
+        } catch (Exception e) {
+            // Retourne HTTP 400 en cas d'erreur lors de la suppression de l'utilisateur
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erreur lors de la suppression de la réponse : " + e.getMessage());
         }
     }
+    
 
     @PostMapping("/checkReponse")
     public ResponseEntity<String> checkReponse(@RequestParam Integer idReponse) {
