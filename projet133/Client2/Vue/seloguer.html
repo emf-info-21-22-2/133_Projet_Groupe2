@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <title>Créer un utilisateur</title>
+    <link rel="stylesheet" href="../Css/style.css"> <!-- Assurez-vous de mettre le bon chemin vers votre fichier CSS -->
+    <script src="../Ctrl/servicesHttp.js"></script> <!-- Assurez-vous de mettre le bon chemin vers jQuery -->
+ 
+</head>
+<body>
+    <div class="login">
+        <h2>Créer un utilisateur</h2>
+        <form id="createUserForm">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Créer utilisateur</button>
+        </form>
+        <p id="error-message" class="error"></p>
+    </div>
+</body>
+</html>
