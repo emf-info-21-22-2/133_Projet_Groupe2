@@ -18,10 +18,26 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("Connexion réussie :", data);
             window.location.href = "app.html"; 
             // Rediriger ou effectuer d'autres actions après une connexion réussie
+            const questions = document.getElementById("question").value;
+            
         }, function(xhr, status, error) {
             // Callback d'erreur
             console.error("Échec de la connexion :", status, error);
             errorMessage.textContent = "Échec de la connexion. Veuillez vérifier vos identifiants.";
+        });
+    });
+
+    loginForm.addEventListener("logout", function(event){
+        // Appeler la fonction de connexion depuis serviceshttp.js
+        deconnecterUtilisateur(function(data) {
+            // Callback de succèss
+            console.log("Deconnexion réussie :", data);
+            window.location.href = "index.html"; 
+            
+        }, function(xhr, status, error) {
+            // Callback d'erreur
+            console.error("Échec de la Deconnexion :", status, error);
+            errorMessage.textContent = "Échec de la Deconnexion.";
         });
     });
 });
