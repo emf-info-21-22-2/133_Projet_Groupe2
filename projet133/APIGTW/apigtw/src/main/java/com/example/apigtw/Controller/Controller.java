@@ -168,7 +168,11 @@ public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSess
     // Methode du REST 1
 
     @GetMapping("/getQuestions")
-    public ResponseEntity<String> getAllQuestions() {
+    public ResponseEntity<String> getAllQuestions(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+        }
         try {
             // Appelle la méthode du service
             ResponseEntity<String> response = rest1.getQuestions();

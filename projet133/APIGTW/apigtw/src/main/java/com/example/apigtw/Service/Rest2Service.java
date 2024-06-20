@@ -20,7 +20,7 @@ import com.example.apigtw.dto.UserDTO;
 @Service
 public class Rest2Service {
     private final RestTemplate restTemplate;
-    private final String baseUrl = "http://localhost:8082";
+    private final String baseUrl = "http://host.docker.internal:8082";
     
     public Rest2Service() {
         restTemplate = new RestTemplate();
