@@ -2,10 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Login - Nael</title>
+    <title>Page de Login</title>
     <link rel="stylesheet" href="../Css/style.css">
-    <script src="../Controller/login.js"></script>
+    <script src="../Ctrl/login.js"></script>¨
+    <script src="../Ctrl/serviceHttp.js"></script>¨
 </head>
 <body>
     <div class="login">
@@ -15,7 +17,7 @@
             <input type="text" id="TXTusername">
             <label for="password">Mot de passe:</label>
             <input type="password" id="TXTpassword">
-            <button type="submit" id="buttonLogin">Se connecter</button>
+            <button type="submit">Se connecter</button>
         </form>
         <p id="error-message" class="error"></p>
     </div>
