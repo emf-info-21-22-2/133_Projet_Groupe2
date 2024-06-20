@@ -7,19 +7,24 @@
     <title>Créer un utilisateur</title>
     <link rel="stylesheet" href="../Css/style.css"> <!-- Assurez-vous de mettre le bon chemin vers votre fichier CSS -->
     <script src="../Ctrl/servicesHttp.js"></script> <!-- Assurez-vous de mettre le bon chemin vers jQuery -->
+    <script src="../Ctrl/addUser.js"></script>
+    <script src="../Ctrl/logout.js"></script>  
+   
+
  
 </head>
 <body>
-    <div class="login">
+    <div class="create-user">
         <h2>Créer un utilisateur</h2>
+        <button id="logoutButton">Se déconnecter</button>
         <form id="createUserForm">
-            <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password" required>
+            <label for="newUsername">Nouvel identifiant :</label>
+            <input type="text" id="newUsername" name="newUsername" required>
+            <label for="newPassword">Nouveau mot de passe :</label>
+            <input type="password" id="newPassword" name="newPassword" required>
             <button type="submit">Créer utilisateur</button>
         </form>
-        <p id="error-message" class="error"></p>
+        <p id="creation-message"></p>
     </div>
 </body>
 </html>

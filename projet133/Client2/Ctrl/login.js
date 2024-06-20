@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loginConnecter(username, password, function(data) {
             // Callback de succèss
             console.log("Connexion réussie :", data);
-            window.location.href = "seloguer.html"; 
+            window.location.href = "addUser.html"; 
             // Rediriger ou effectuer d'autres actions après une connexion réussie
         }, function(xhr, status, error) {
             // Callback d'erreur
