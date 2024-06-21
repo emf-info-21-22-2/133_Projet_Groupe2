@@ -11,7 +11,7 @@ function chargerQuestions(successCallback, errorCallback) {
     dataType: "json",
     url: BASE_URL + "getQuestions",
     xhrFields: {
-      withCredentials: true
+      wihtCredentials: true
     },
     xhrFields: {
       withCredentials: true
@@ -37,7 +37,11 @@ function loginConnecter(username, password, successCallback, errorCallback) {
       password: password
     },
     xhrFields: {
+<<<<<<< HEAD
       withCredentials: true
+=======
+      wihtCredentials: true
+>>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
@@ -60,7 +64,11 @@ function enregistrerUtilisateur(username, password, successCallback, errorCallba
       password: password
     },
     xhrFields: {
+<<<<<<< HEAD
       withCredentials: true
+=======
+      wihtCredentials: true
+>>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
@@ -76,6 +84,9 @@ function deconnecterUtilisateur(successCallback, errorCallback) {
   $.ajax({
     type: "POST",
     url: BASE_URL + "logout",
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -119,7 +130,11 @@ function supprimerQuestion(id, successCallback, errorCallback) {
       id: id
     },
     xhrFields: {
+<<<<<<< HEAD
       withCredentials: true
+=======
+      wihtCredentials: true
+>>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
@@ -144,7 +159,11 @@ function ajouterReponse(newReponse, correcte, question, successCallback, errorCa
       question: question
     },
     xhrFields: {
+<<<<<<< HEAD
       withCredentials: true
+=======
+      wihtCredentials: true
+>>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
@@ -164,6 +183,9 @@ function supprimerReponse(id, successCallback, errorCallback) {
     data: {
       id: id
     },
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -181,6 +203,9 @@ function verifierReponse(idReponse, successCallback, errorCallback) {
     url: BASE_URL + "checkReponse",
     data: {
       idReponse: idReponse
+    },
+    xhrFields: {
+      wihtCredentials: true
     },
     success: successCallback,
     error: errorCallback

@@ -15,6 +15,10 @@ import com.example.apigtw.Service.Rest2Service;
 import com.example.apigtw.dto.ReponseDTO;
 
 import jakarta.servlet.http.HttpSession;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
 @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"}, allowCredentials = "true")
 @RestController
 public class Controller {
@@ -170,7 +174,7 @@ public ResponseEntity<String> addScoreUser(@RequestParam Integer point, HttpSess
 
     @GetMapping("/getQuestions")
     public ResponseEntity<String> getAllQuestions(HttpSession session) {
-        String username = (String) session.getAttribute("username");
+         String username = (String) session.getAttribute("username");
         if (username == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
         }
