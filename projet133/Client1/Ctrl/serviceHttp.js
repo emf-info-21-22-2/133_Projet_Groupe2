@@ -1,5 +1,5 @@
 var BASE_URL = "http://localhost:8080/";
- 
+
 /**
  * Fonction permettant de demander la liste des questions au serveur.
  * @param {function} successCallback Fonction de callback lors du retour avec succès de l'appel.
@@ -20,7 +20,7 @@ function chargerQuestions(successCallback, errorCallback) {
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour se connecter.
  * @param {string} username Nom d'utilisateur.
@@ -37,17 +37,14 @@ function loginConnecter(username, password, successCallback, errorCallback) {
       password: password
     },
     xhrFields: {
-<<<<<<< HEAD
       withCredentials: true
-=======
-      wihtCredentials: true
->>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
+
     },
     success: successCallback,
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour enregistrer un nouvel utilisateur.
  * @param {string} username Nom d'utilisateur.
@@ -64,17 +61,13 @@ function enregistrerUtilisateur(username, password, successCallback, errorCallba
       password: password
     },
     xhrFields: {
-<<<<<<< HEAD
       withCredentials: true
-=======
-      wihtCredentials: true
->>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour se déconnecter.
  * @param {function} successCallback Fonction de callback en cas de succès.
@@ -91,7 +84,7 @@ function deconnecterUtilisateur(successCallback, errorCallback) {
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour ajouter une question.
  * @param {string} enoncer L'énoncé de la question.
@@ -106,16 +99,14 @@ function ajouterQuestion(enoncer, successCallback, errorCallback) {
     data: {
       enoncer: enoncer
     },
-
     xhrFields: {
       withCredentials: true
     },
-
     success: successCallback,
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour supprimer une question.
  * @param {number} id ID de la question.
@@ -130,17 +121,13 @@ function supprimerQuestion(id, successCallback, errorCallback) {
       id: id
     },
     xhrFields: {
-<<<<<<< HEAD
       withCredentials: true
-=======
-      wihtCredentials: true
->>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour ajouter une réponse.
  * @param {string} newReponse Le texte de la réponse.
@@ -159,17 +146,13 @@ function ajouterReponse(newReponse, correcte, question, successCallback, errorCa
       question: question
     },
     xhrFields: {
-<<<<<<< HEAD
       withCredentials: true
-=======
-      wihtCredentials: true
->>>>>>> a9ac92a2bebc476914381aec025e2d7436c26e35
     },
     success: successCallback,
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour supprimer une réponse.
  * @param {number} id ID de la réponse.
@@ -190,7 +173,7 @@ function supprimerReponse(id, successCallback, errorCallback) {
     error: errorCallback
   });
 }
- 
+
 /**
  * Fonction pour vérifier une réponse.
  * @param {number} idReponse ID de la réponse.
@@ -211,4 +194,3 @@ function verifierReponse(idReponse, successCallback, errorCallback) {
     error: errorCallback
   });
 }
- 
