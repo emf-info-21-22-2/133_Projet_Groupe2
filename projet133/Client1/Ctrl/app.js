@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
             questionElement.classList.add("enoncer");
             questionElement.textContent = questionText; // Le texte de la question
             questionsList.appendChild(questionElement);
+            
         }
     }, function(xhr, status, error) {
         console.error("Échec du chargement des questions :", status, error);

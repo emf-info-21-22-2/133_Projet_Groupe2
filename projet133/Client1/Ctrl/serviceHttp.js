@@ -11,7 +11,7 @@ function chargerQuestions(successCallback, errorCallback) {
     dataType: "json",
     url: BASE_URL + "getQuestions",
     xhrFields: {
-      withCredentials: true
+      wihtCredentials: true
     },
     success: successCallback,
     error: errorCallback
@@ -33,6 +33,9 @@ function loginConnecter(username, password, successCallback, errorCallback) {
       username: username,
       password: password
     },
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -53,6 +56,9 @@ function enregistrerUtilisateur(username, password, successCallback, errorCallba
       username: username,
       password: password
     },
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -67,6 +73,9 @@ function deconnecterUtilisateur(successCallback, errorCallback) {
   $.ajax({
     type: "POST",
     url: BASE_URL + "logout",
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -106,6 +115,9 @@ function supprimerQuestion(id, successCallback, errorCallback) {
     data: {
       id: id
     },
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -128,6 +140,9 @@ function ajouterReponse(newReponse, correcte, question, successCallback, errorCa
       correcte: correcte,
       question: question
     },
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -146,6 +161,9 @@ function supprimerReponse(id, successCallback, errorCallback) {
     data: {
       id: id
     },
+    xhrFields: {
+      wihtCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -163,6 +181,9 @@ function verifierReponse(idReponse, successCallback, errorCallback) {
     url: BASE_URL + "checkReponse",
     data: {
       idReponse: idReponse
+    },
+    xhrFields: {
+      wihtCredentials: true
     },
     success: successCallback,
     error: errorCallback
