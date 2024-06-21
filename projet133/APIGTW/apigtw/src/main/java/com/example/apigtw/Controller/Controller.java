@@ -3,6 +3,7 @@ package com.example.apigtw.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ import com.example.apigtw.Service.Rest2Service;
 import com.example.apigtw.dto.ReponseDTO;
 
 import jakarta.servlet.http.HttpSession;
-
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"}, allowCredentials = "true")
 @RestController
 public class Controller {
     private final Rest1Service rest1;

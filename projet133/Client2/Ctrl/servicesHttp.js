@@ -29,6 +29,9 @@ function loginConnecter(username, password, successCallback, errorCallback) {
       username: username,
       password: password
     },
+    xhrFields: {
+      withCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -49,6 +52,9 @@ function enregistrerUtilisateur(username, password, successCallback, errorCallba
       username: username,
       password: password
     },
+    xhrFields: {
+      withCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -64,6 +70,9 @@ function deconnecterUtilisateur(successCallback, errorCallback) {
     type: "POST",
     url: BASE_URL + "logout",
     success: successCallback,
+    xhrFields: {
+      withCredentials: true
+    },
     error: errorCallback
   });
 }
@@ -80,9 +89,15 @@ function ajouterQuestion(enoncer, successCallback, errorCallback) {
     url: BASE_URL + "addQuestion",
     data: {
       enoncer: enoncer
+      
+    },
+    xhrFields: {
+      withCredentials: true
     },
     success: successCallback,
     error: errorCallback
+    
+
   });
 }
 
@@ -98,6 +113,9 @@ function supprimerQuestion(id, successCallback, errorCallback) {
     url: BASE_URL + "deleteQuestion",
     data: {
       id: id
+    },
+    xhrFields: {
+      withCredentials: true
     },
     success: successCallback,
     error: errorCallback

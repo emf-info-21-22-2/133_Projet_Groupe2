@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const createQuestionButton = document.getElementById("createQuestionButton");
     if (createQuestionButton) {
         createQuestionButton.addEventListener("click", function () {
-            window.location.href = "addQuestion.html";
+           
+                // Rediriger vers la page de connexion si le token de session n'existe pas
+                window.location.href = "addQuestion.html";
+           
         });
     }
 
@@ -25,14 +28,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    const logoutButton = document.getElementById("logoutButton");
-    logoutButton.addEventListener("click", function () {
-        // Appel à la fonction de déconnexion depuis servicesHttp.js
-        deconnecterUtilisateur(function (response) {
-            console.log("Déconnexion réussie :", response);
-            window.location.href = "login.html"; // Redirection vers la page de connexion après déconnexion
-        }, function (xhr, status, error) {
-            console.error("Erreur lors de la déconnexion :", status, error);
-        });
-    });
+    
 });
