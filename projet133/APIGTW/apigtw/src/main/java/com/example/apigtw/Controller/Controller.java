@@ -68,11 +68,15 @@ public ResponseEntity<String> login(@RequestParam String username,
 
     @PostMapping("/addUser")
 public ResponseEntity<String> addUser(@RequestParam String username,
-        @RequestParam String password) {
+        @RequestParam String password, HttpSession session) {
     if(username == null || username.isEmpty() || password == null || password.isEmpty()) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("Le nom d'utilisateur et le mot de passe ne peuvent pas être vides");
     }
+    String nom = (String) session.getAttribute("username");
+        if (nom == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session inexistante ou expirée");
+        }
     try {
         // Ajoute l'utilisateur en utilisant le service approprié
         rest2.createUser(username, password);
@@ -88,6 +92,7 @@ public ResponseEntity<String> addUser(@RequestParam String username,
 }
 @GetMapping("/getScoresUser")
     public ResponseEntity<String> getAllScoresUser() {
+        
         try {
             // Appelle la méthode du service
             ResponseEntity<String> response = rest2.getScoresUsers();
