@@ -1,26 +1,29 @@
-$(document).ready(function() {
-    // Appel de la fonction pour charger les questions
-    chargerQuestions(function(questions) {
-        // Success callback - gestion des questions récupérées
-        afficherQuestions(questions);
-    }, function(error) {
-        // Error callback - gestion des erreurs
-        console.error("Erreur lors du chargement des questions:", error);
-        $("#question").text("Impossible de charger les questions.");
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    // Charger les questions lorsque la page est prête
+    chargerQuestions(function(data) {
+        console.log("Données reçues : ", data);
+        const questionsList = document.getElementById("questionsList");
+        
+        for (let questionText in data) {
+            const questionElement = document.createElement("div");
+            questionElement.classList.add("question");
+            questionElement.textContent = questionText;
+            questionsList.appendChild(questionElement);
+
+            const answersList = document.createElement("ul");
+            answersList.classList.add("answers");
+            data[questionText].forEach(function(answer) {
+                const answerItem = document.createElement("li");
+                answerItem.classList.add("answer");
+                answerItem.textContent = answer;
+                answersList.appendChild(answerItem);
+            });
+
+            questionsList.appendChild(answersList);
+        }
+    }, function(xhr, status, error) {
+        console.error("Échec du chargement des questions :", status, error);
+        const questionsList = document.getElementById("questionsList");
+        questionsList.textContent = "Échec du chargement des questions.";
+    })
 });
-
-/**
- * Fonction permettant d'afficher les questions dans le label.
- * @param {Array} questions Liste des questions récupérées.
- */
-function afficherQuestions(questions) {
-    // Supposons que 'questions' est un tableau d'objets contenant les questions.
-    var questionLabel = $("#question");
-    questionLabel.text("");  // Réinitialiser le contenu du label
-
-    questions.forEach(function(question, index) {
-        // Ajout de chaque question dans le label. Utilisez 'text' si vous voulez juste du texte
-        questionLabel.append((index + 1) + ". " + question.texte + "<br>");
-    });
-}

@@ -16,7 +16,7 @@ import com.example.apigtw.dto.ReponseDTO;
 public class Rest1Service {
 
     private final RestTemplate restTemplate;
-    private final String base_url = "http://host.docker.internal:8081";
+    private final String base_url = "http://localhost:8081";
     
     
     public Rest1Service() {

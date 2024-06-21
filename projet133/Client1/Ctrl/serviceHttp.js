@@ -8,6 +8,7 @@ var BASE_URL = "http://localhost:8080/";
 function chargerQuestions(successCallback, errorCallback) {
   $.ajax({
     type: "GET",
+    dataType: "json",
     url: BASE_URL + "getQuestions",
     success: successCallback,
     error: errorCallback
