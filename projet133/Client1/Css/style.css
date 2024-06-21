@@ -107,7 +107,7 @@ label {
     color: #333;
 }
 
-.logout {
+#logout {
     padding: 10px 20px;
     background-color: #d9534f;
     border: none;
