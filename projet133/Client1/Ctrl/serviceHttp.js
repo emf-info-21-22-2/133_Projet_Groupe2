@@ -10,6 +10,9 @@ function chargerQuestions(successCallback, errorCallback) {
     type: "GET",
     dataType: "json",
     url: BASE_URL + "getQuestions",
+    xhrFields: {
+      withCredentials: true
+    },
     success: successCallback,
     error: errorCallback
   });
@@ -81,6 +84,9 @@ function ajouterQuestion(enoncer, successCallback, errorCallback) {
     url: BASE_URL + "addQuestion",
     data: {
       enoncer: enoncer
+    },
+    xhrFields: {
+      withCredentials: true
     },
     success: successCallback,
     error: errorCallback
