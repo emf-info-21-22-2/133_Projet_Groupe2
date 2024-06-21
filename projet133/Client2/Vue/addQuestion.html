@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <title>Ajouter une question</title>
+    <link rel="stylesheet" href="../Css/style.css">
+    <script src="../Ctrl/servicesHttp.js"></script>
+    <script src="../Ctrl/addQuestion.js"></script>
+</head>
+<body>
+    <div class="create-question">
+        <h2>Ajouter une question</h2>
+        <form id="createQuestionForm">
+            <label for="questionText">Question :</label>
+            <input type="text" id="questionText" name="questionText" required>
+            <button type="submit">Ajouter la question</button>
+        </form>
+        <p id="creation-message"></p>
+    </div>
+</body>
+</html>

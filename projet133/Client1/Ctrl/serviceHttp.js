@@ -78,10 +78,12 @@ function deconnecterUtilisateur(successCallback, errorCallback) {
 function ajouterQuestion(enoncer, successCallback, errorCallback) {
   $.ajax({
     type: "POST",
+    dataType: "json",
     url: BASE_URL + "addQuestion",
     data: {
       enoncer: enoncer
     },
+    
     success: successCallback,
     error: errorCallback
   });
