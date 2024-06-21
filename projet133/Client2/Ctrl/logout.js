@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
             deconnecterUtilisateur(function(response) {
                 console.log("Déconnexion réussie :", response);
                 // Redirection vers la page de connexion après déconnexion
+                
                 window.location.href = "index.html";
             }, function(xhr, status, error) {
                 console.error("Erreur lors de la déconnexion :", status, error);

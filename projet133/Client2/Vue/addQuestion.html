@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Login</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <title>Ajouter une question</title>
     <link rel="stylesheet" href="../Css/style.css">
-    <script src="../Ctrl/login.js"></script>¨
-    <script src="../Ctrl/servicesHttp.js"></script>¨
+    <script src="../Ctrl/servicesHttp.js"></script>
+    <script src="../Ctrl/addQuestion.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sessionToken = localStorage.getItem('sessionToken');
@@ -20,16 +20,14 @@
     </script>
 </head>
 <body>
-    <div class="login">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <label for="username">Identifiant:</label>
-            <input type="text" id="TXTusername">
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="TXTpassword">
-            <button type="submit">Se connecter</button>
+    <div class="create-question">
+        <h2>Ajouter une question</h2>
+        <form id="createQuestionForm">
+            <label for="questionText">Question :</label>
+            <input type="text" id="questionText" name="questionText" required>
+            <button type="submit">Ajouter la question</button>
         </form>
-        <p id="error-message" class="error"></p>
+        <p id="creation-message"></p>
     </div>
 </body>
 </html>

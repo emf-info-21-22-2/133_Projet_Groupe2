@@ -9,6 +9,16 @@
     <script src="../Ctrl/servicesHttp.js"></script> <!-- Assurez-vous de mettre le bon chemin vers jQuery -->
     <script src="../Ctrl/addUser.js"></script>
     <script src="../Ctrl/logout.js"></script>  
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sessionToken = localStorage.getItem('sessionToken');
+            if (sessionToken) {
+                console.log("Token de session :", sessionToken);
+            } else {
+                console.log("Aucun token de session trouvé.");
+            }
+        });
+    </script>
    
 
  
@@ -17,6 +27,7 @@
     <div class="create-user">
         <h2>Créer un utilisateur</h2>
         <button id="logoutButton">Se déconnecter</button>
+        <button id="createQuestionButton">Créer une question</button>
         <form id="createUserForm">
             <label for="newUsername">Nouvel identifiant :</label>
             <input type="text" id="newUsername" name="newUsername" required>
